@@ -6,26 +6,23 @@ import java.util.List;
 
 // BEGIN
 class App {
-    public static boolean scrabble(String availableChars, String word) {
+    public static boolean scrabble(String symbols, String word) {
 
-        availableChars = availableChars.toLowerCase();
-        word = word.toLowerCase();
+        List<String> wordList = new ArrayList<>(Arrays.asList(word.toLowerCase().split("")));
 
-        List<Character> charsList = new ArrayList<>();
-        for (int i = 0; i < availableChars.length(); i++) {
-            charsList.add(availableChars.charAt(i));
-        }
+        List<String> symbolsList = new ArrayList<>(Arrays.asList(symbols.toLowerCase().split("")));
 
-        for (int i = 0; i < word.length(); i++) {
-            char ch = word.charAt(i);
-            if (charsList.contains(ch)) {
-                charsList.remove(Character.valueOf(ch));
+        boolean result = true;
+        for (String item: wordList) {
+
+            if (symbolsList.contains(item)) {
+                symbolsList.remove(item);
             } else {
-                return false;
+                result = false;
+                break;
             }
         }
-
-        return true;
+        return result;
     }
 }
 //END
