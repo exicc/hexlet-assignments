@@ -2,3 +2,4 @@
 build/
 caches/
 .idea/
+.DS_Store
