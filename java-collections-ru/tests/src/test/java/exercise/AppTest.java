@@ -12,11 +12,8 @@ class AppTest {
     @Test
     void testTake() {
         // BEGIN
-        List<Integer> elements1 = new ArrayList<>();
-        elements1.add(1);
-        elements1.add(2);
-        elements1.add(3);
-        elements1.add(4);
+        List<Integer> elements1 = List.of(1, 2, 3, 4);
+
         int elementsCount1 = 3;
 
         int length1 = elements1.size();
@@ -30,16 +27,9 @@ class AppTest {
 
         assertThat(App.take(elements1, elementsCount1)).isEqualTo(result1);
 
-        List<Integer> elements2 = new ArrayList<>();
-        elements2.add(1);
-        elements2.add(2);
-        elements2.add(3);
-        elements2.add(4);
-        elements2.add(3);
-        elements2.add(2);
-        elements2.add(1);
-        elements2.add(0);
-        int elementsCount2 = 3;
+        List<Integer> elements2 = List.of(1, 2, 3, 4, 4, 3, 2, 1);
+
+        int elementsCount2 = 15;
 
         int length2 = elements2.size();
         if (elementsCount2 > length2) {
