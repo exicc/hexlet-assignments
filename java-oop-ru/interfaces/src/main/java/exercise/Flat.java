@@ -1,0 +1,30 @@
+package exercise;
+
+// BEGIN
+public class Flat implements Home {
+    public double area;
+    public double balconyArea;
+    public int floor;
+
+     public Flat(double area, double balconyArea, int floor) {
+
+    }
+
+    @Override
+    public double getArea() {
+        return area + balconyArea;
+    }
+    @Override
+    public int compareTo(Home another) {
+        return Double.compare(this.getArea(), another.getArea());
+    }
+
+    @Override
+    public String toString() {
+        return "Квартира площадью "
+                + getArea()
+                + " метров на "
+                + floor + "этаже.";
+    }
+}
+// END
