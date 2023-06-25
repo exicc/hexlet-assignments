@@ -8,7 +8,10 @@ public class Flat implements Home {
 
      public Flat(double area, double balconyArea, int floor) {
 
-    }
+         this.area = area;
+         this.balconyArea = balconyArea;
+         this.floor = floor;
+     }
 
     @Override
     public double getArea() {
@@ -24,7 +27,7 @@ public class Flat implements Home {
         return "Квартира площадью "
                 + getArea()
                 + " метров на "
-                + floor + "этаже.";
+                + floor + " этаже";
     }
 }
 // END

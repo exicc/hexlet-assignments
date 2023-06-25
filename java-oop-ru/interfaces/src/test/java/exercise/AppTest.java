@@ -57,6 +57,32 @@ class AppTest {
     }
 
     // BEGIN
-    
+    @Test
+    public void testLength() {
+        ReversedSequence reversedSequence = new ReversedSequence("abcdef");
+        assertThat(reversedSequence.length()).isEqualTo(6);
+    }
+
+    @Test
+    public void testCharAt() {
+        ReversedSequence reversedSequence = new ReversedSequence("abcdef");
+        assertThat(reversedSequence.charAt(0)).isEqualTo('f');
+        assertThat(reversedSequence.charAt(2)).isEqualTo('d');
+        assertThat(reversedSequence.charAt(5)).isEqualTo('a');
+    }
+
+    @Test
+    public void testSubSequence() {
+        ReversedSequence reversedSequence = new ReversedSequence("abcdef");
+        assertThat(reversedSequence.subSequence(1, 4)).isEqualTo("edc");
+        assertThat(reversedSequence.subSequence(0, 3)).isEqualTo("fed");
+        assertThat(reversedSequence.subSequence(0, 6)).isEqualTo("fedcba");
+    }
+
+    @Test
+    public void testToString() {
+        ReversedSequence reversedSequence = new ReversedSequence("abcdef");
+        assertThat(reversedSequence.toString()).isEqualTo("fedcba");
+    }
     // END
 }
