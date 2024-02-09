@@ -36,7 +36,7 @@ public final class App {
             if (targetCompany != null) {
                 ctx.json(targetCompany);
             } else {
-                throw new NotFoundResponse("Company with id = " + targetId + " not found");
+                throw new NotFoundResponse("Company not found");
             }
         });
         // END
