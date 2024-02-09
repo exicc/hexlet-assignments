@@ -24,13 +24,12 @@ public final class App {
         app.get("/companies/{id}", ctx -> {
             String targetId = ctx.pathParam("id");
 
-            Map<String, String> targetCompany = new HashMap<>();
+            Map<String, String> targetCompany = null;
             for (Map<String, String> company : COMPANIES) {
                 String companyID = company.get("id");
                 if (targetId.equals(companyID)) {
                     targetCompany = company;
-                } else {
-                    targetCompany = null;
+                    break;
                 }
             }
             if (targetCompany != null) {
