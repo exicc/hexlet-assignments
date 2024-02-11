@@ -21,14 +21,14 @@
     </tr>
     </thead>
     <tbody>
-    @for(var userPage : usersPage.getUsers())
-    <tr>
-        <td>${userPage.getId()}</td>
-        <td>${userPage.getFirstName()}</td>
-        <td>${userPage.getLastName()}</td>
-        <td>${userPage.getEmail()}</td>
-        <td><a href="/users/@userPage.getUser().getId()">View</a></td>
-    </tr>
+    @for(var user : usersPage.getUsers())
+        <tr>
+            <td>${user.getId()}</td>
+            <td>${user.getFirstName()}</td>
+            <td>${user.getLastName()}</td>
+            <td>${user.getEmail()}</td>
+            <td><a href="/users/${user.getId()}">View</a></td>
+        </tr>
     @endfor
     </tbody>
 </table>
