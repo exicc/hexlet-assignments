@@ -22,16 +22,19 @@ public final class App {
         // BEGIN
         app.get("/users", ctx -> {
             UsersPage usersPage = new UsersPage(USERS);
-            ctx.render("usersPage.jte", Collections.singletonMap("usersPage", usersPage));
+            ctx.render("users/index.jte", Collections.singletonMap("usersPage", usersPage));
         });
 
         app.get("/users/{id}", ctx -> {
             long userId = ctx.pathParamAsClass("id", Long.class).get();
-            User user = findUserById(userId);
+            User user = USERS.stream()
+                    .filter(u -> u.getId() == userId)
+                    .findFirst()
+                    .orElse(null);
 
             if (user != null) {
                 UserPage userPage = new UserPage(user);
-                ctx.render("userPage.jte", Collections.singletonMap("userPage", userPage));
+                ctx.render("users/show.jte", Collections.singletonMap("userPage", userPage));
             } else {
                 throw new NotFoundResponse("User not found");
             }
@@ -43,14 +46,6 @@ public final class App {
         });
 
         return app;
-    }
-    private static User findUserById(long userId) {
-        for (User user : USERS) {
-            if (user.getId() == userId) {
-                return user;
-            }
-        }
-        return null;
     }
 
     public static void main(String[] args) {
