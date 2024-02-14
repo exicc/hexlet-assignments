@@ -9,13 +9,20 @@ content = @`
     </form>
 
 
-    @if(page.getUsers().isEmpty())
-        <p>Пользователи не найдены.</p>
-    @else
+    @if(!page.getUsers().isEmpty())
         <ul>
-            @for(var user : page.getUsers())
-                <li>${user.getFirstName()}</li>
-            @endfor
+            <table class="table table-striped">
+                @for(var user : page.getUsers())
+                    <tr>
+                        <td>
+                            ${user.getId()}
+                        </td>
+                        <td>
+                            ${user.getFirstName()} ${user.getLastName()}
+                        </td>
+                    </tr>
+                @endfor
+            </table>
         </ul>
     @endif
 `

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import exercise.model.User;
 import exercise.dto.users.UsersPage;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Collections;
 
 
@@ -22,17 +24,18 @@ public final class App {
         });
         // BEGIN
         app.get("/users", ctx -> {
-            var firstName = ctx.queryParam("term");
-            List<User> filteredUsers;
+            var term = ctx.queryParam("term");
+            List<User> users;
 
-            if (firstName != null) {
-                filteredUsers = USERS.stream()
-                        .filter(user -> user.getFirstName().toLowerCase().startsWith(firstName.toLowerCase()))
-                        .toList();
+            if (term == null) {
+                users = USERS;
             } else {
-                filteredUsers = new ArrayList<>();
+                users = USERS
+                        .stream()
+                        .filter(u -> StringUtils.startsWithIgnoreCase(u.getFirstName(), term))
+                        .toList();
             }
-            var page = new UsersPage(filteredUsers, firstName);
+            var page = new UsersPage(users, term);
             ctx.render("users/index.jte", Collections.singletonMap("page", page));
         });
         // END
