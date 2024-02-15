@@ -40,18 +40,22 @@ public final class App {
 
             try {
                 var titleCheck = ctx.formParamAsClass("title", String.class)
-                        .check(value -> value.length() < 2, "Название статьи должно быть не короче 2 символов")
-                        .check(value -> !ArticleRepository.existsByTitle(value), "Статья с таким названием уже существует")
+                        .check(value -> value.length() < 2
+                                , "Название статьи должно быть не короче 2 символов")
+                        .check(value -> !ArticleRepository.existsByTitle(value)
+                                , "Статья с таким названием уже существует")
                         .get();
                 var contentCheck = ctx.formParamAsClass("content", String.class)
-                        .check(value -> value.length() < 10, "Содержимое статьи должно быть не короче 10 символов")
+                        .check(value -> value.length() < 10
+                                , "Содержимое статьи должно быть не короче 10 символов")
                         .get();
 
                 ArticleRepository.save(new Article(titleCheck, contentCheck));
                 ctx.redirect("/articles");
             } catch (ValidationException e) {
                 var page = new BuildArticlePage(title, content, e.getErrors());
-                ctx.status(422).contentType("text/html; charset=UTF-8").render("articles/build.jte", Collections.singletonMap("page", page));
+                ctx.status(422).contentType("text/html; charset=UTF-8")
+                        .render("articles/build.jte", Collections.singletonMap("page", page));
             }
         });
         // END
