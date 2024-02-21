@@ -26,7 +26,7 @@ content = @`
                     <label for="name" class="form-label">Название</label>
                     <input type="text" class="form-control" id="name" name="name" value="${page.getName()}">
                     @if(page.getErrors().get("name") != null)
-                        <div class="text-danger">${page.getErrors().get("name").getFirst().getMessage()}</div>
+                        <div class="text-danger">${page.getErrors().get("name").get(0).getMessage()}</div>
                     @endif
                 </div>
 
@@ -34,7 +34,7 @@ content = @`
                     <label for="body" class="form-label">Текст поста</label>
                     <textarea class="form-control" id="body" name="body">${page.getBody()}</textarea>
                     @if(page.getErrors().get("body") != null)
-                        <div class="text-danger">${page.getErrors().get("body").getFirst().getMessage()}</div>
+                        <div class="text-danger">${page.getErrors().get("body").get(0).getMessage()}</div>
                     @endif
                 </div>
 
