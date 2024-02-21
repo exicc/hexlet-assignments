@@ -88,7 +88,9 @@ public class PostsController {
 
             post.setName(name);
             post.setBody(body);
+
             PostRepository.save(post);
+
             ctx.redirect(NamedRoutes.postsPath());
 
         } catch (ValidationException e) {
