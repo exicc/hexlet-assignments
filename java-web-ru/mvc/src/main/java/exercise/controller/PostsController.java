@@ -64,14 +64,13 @@ public class PostsController {
                 .orElseThrow(() -> new NotFoundResponse("Post not found"));
 
         var editPage = new EditPostPage(
-                String.valueOf(id),
+                post.getId(),
                 post.getName(),
                 post.getBody(),
                 Collections.emptyMap()
         );
         ctx.render("posts/edit.jte", Collections.singletonMap("page", editPage));
     }
-
     public static void update(Context ctx) {
         try {
             var id = ctx.pathParamAsClass("id", Long.class).get();
@@ -84,21 +83,20 @@ public class PostsController {
                     .get();
 
             var post = PostRepository.find(id)
-                    .orElseThrow(() -> new NotFoundResponse("Post not found"));
+                    .orElseThrow(() -> new NotFoundResponse("Пост не найден"));
 
             post.setName(name);
             post.setBody(body);
 
             PostRepository.save(post);
-
             ctx.redirect(NamedRoutes.postsPath());
 
         } catch (ValidationException e) {
-            var id = ctx.pathParam("id");
+            var id = ctx.pathParamAsClass("id", Long.class).get();
             var name = ctx.formParam("name");
             var body = ctx.formParam("body");
-            var editPage = new EditPostPage(id, name, body, e.getErrors());
-            ctx.render("posts/edit.jte", Collections.singletonMap("page", editPage)).status(422);
+            var page = new EditPostPage(id, name, body, e.getErrors());
+            ctx.render("posts/edit.jte", Collections.singletonMap("page", page)).status(422);
         }
     }
     // END
