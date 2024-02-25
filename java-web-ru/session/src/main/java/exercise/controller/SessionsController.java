@@ -12,14 +12,14 @@ import io.javalin.http.Context;
 public class SessionsController {
 
     // BEGIN
-    public static void index (Context ctx) {
-            var page = new MainPage(ctx.sessionAttribute("currentUser"));
-            ctx.render("index.jte", Collections.singletonMap("page", page));
+    public static void index(Context ctx) {
+        var page = new MainPage(ctx.sessionAttribute("currentUser"));
+        ctx.render("index.jte", Collections.singletonMap("page", page));
     }
-    public static void build (Context ctx) {
+    public static void build(Context ctx) {
         ctx.render("build.jte");
     }
-    public static void create (Context ctx) {
+    public static void create(Context ctx) {
         var name = ctx.formParam("name");
         var password = ctx.formParam("password");
 
@@ -37,7 +37,7 @@ public class SessionsController {
             ctx.redirect(NamedRoutes.rootPath());
         }
     }
-    public static void delete (Context ctx) {
+    public static void delete(Context ctx) {
         ctx.sessionAttribute("currentUser", null);
         ctx.redirect(NamedRoutes.rootPath());
     }

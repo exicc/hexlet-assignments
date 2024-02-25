@@ -3,9 +3,7 @@ package exercise;
 import io.javalin.Javalin;
 import exercise.controller.SessionsController;
 import exercise.util.NamedRoutes;
-import org.checkerframework.checker.units.qual.N;
 
-import javax.naming.Name;
 
 
 public final class App {
