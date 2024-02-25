@@ -13,34 +13,35 @@ public class SessionsController {
 
     // BEGIN
     public static void index(Context ctx) {
-        var page = new MainPage(ctx.sessionAttribute("currentUser"));
+        var user = ctx.sessionAttribute("user");
+        var page = new MainPage(user);
         ctx.render("index.jte", Collections.singletonMap("page", page));
     }
+
     public static void build(Context ctx) {
-        ctx.render("build.jte");
+        var page = new LoginPage("", "");
+        ctx.render("build.jte", Collections.singletonMap("page", page));
     }
+
     public static void create(Context ctx) {
         var name = ctx.formParam("name");
         var password = ctx.formParam("password");
 
+        var user = UsersRepository.findByName(name);
 
-        if (UsersRepository.existsByName(name)) {
-            var user = UsersRepository.findByName(name);
-            var userPassword = user.getPassword();
-            if (encrypt(password).equals(userPassword)) {
-                ctx.sessionAttribute("currentUser", name);
-                ctx.redirect(NamedRoutes.rootPath());
-            }
+        if (user != null && user.getPassword().equals(encrypt(password))) {
+            ctx.sessionAttribute("user", user.getName());
+            ctx.redirect("/");
         } else {
-            var page = new LoginPage(name, "Wrong username or password");
+            var errorMessage = "Wrong username or password";
+            var page = new LoginPage(name, errorMessage);
             ctx.render("build.jte", Collections.singletonMap("page", page));
-            ctx.redirect(NamedRoutes.rootPath());
         }
     }
-    public static void delete(Context ctx) {
-        ctx.sessionAttribute("currentUser", null);
-        ctx.redirect(NamedRoutes.rootPath());
-    }
 
+    public static void destroy(Context ctx) {
+        ctx.sessionAttribute("user", null);
+        ctx.redirect("/");
+    }
     // END
 }
