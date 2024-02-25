@@ -31,7 +31,7 @@ public class SessionsController {
 
         if (user != null && user.getPassword().equals(encrypt(password))) {
             ctx.sessionAttribute("user", user.getName());
-            ctx.redirect("/");
+            ctx.redirect(NamedRoutes.rootPath());
         } else {
             var errorMessage = "Wrong username or password";
             var page = new LoginPage(name, errorMessage);
@@ -41,7 +41,7 @@ public class SessionsController {
 
     public static void destroy(Context ctx) {
         ctx.sessionAttribute("user", null);
-        ctx.redirect("/");
+        ctx.redirect(NamedRoutes.rootPath());
     }
     // END
 }
