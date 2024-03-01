@@ -11,8 +11,6 @@ import io.javalin.http.Context;
 import io.javalin.validation.ValidationException;
 import io.javalin.http.NotFoundResponse;
 
-import javax.naming.Name;
-
 public class PostsController {
 
     public static void build(Context ctx) {
