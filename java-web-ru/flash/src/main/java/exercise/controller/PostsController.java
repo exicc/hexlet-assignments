@@ -22,7 +22,7 @@ public class PostsController {
     public static void create(Context ctx) {
         try {
             var name = ctx.formParamAsClass("name", String.class)
-                    .check(value -> value.length() <= 2, "Название короче двух символов!")
+                    .check(value -> value.length() >= 2, "Название короче двух символов!")
                     .get();
             var body = ctx.formParamAsClass("body", String.class).get();
             var post = new Post(name, body);

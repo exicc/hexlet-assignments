@@ -12,6 +12,18 @@
     <title>Hexlet</title>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/posts">Posts</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 @if(page != null && page.getFlash() != null)
     <p>${page.getFlash()}</p>
 @endif
