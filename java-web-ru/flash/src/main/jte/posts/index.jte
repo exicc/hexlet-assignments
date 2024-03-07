@@ -6,24 +6,31 @@
 
 page = page,
 content = @`
-    <h1>Все посты</h1>
-    <div class="mb-3">
-        <a href="${NamedRoutes.buildPostPath()}">Создать новый пост</a>
-    </div>
-    <table class="table table-striped">
-        @for(var post : page.getPosts())
+    <div class="container mt-5">
+        <h1>Все посты</h1>
+        <div class="mb-3">
+            <a class="btn btn-primary" href="${NamedRoutes.buildPostPath()}">Создать новый пост</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>
-                    ${post.getId()}
-                </td>
-                <td>
-                    <a href="${NamedRoutes.postPath(post.getId())}">${post.getName()}</a>
-                </td>
-                <td>
-                    ${post.getBody()}
-                </td>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Текст</th>
             </tr>
-        @endfor
-    </table>
+            </thead>
+            <tbody>
+            @for(var post : page.getPosts())
+                <tr>
+                    <td>${post.getId()}</td>
+                    <td>
+                        <a href="${NamedRoutes.postPath(post.getId())}">${post.getName()}</a>
+                    </td>
+                    <td>${post.getBody()}</td>
+                </tr>
+            @endfor
+            </tbody>
+        </table>
+    </div>
 `,
 )
