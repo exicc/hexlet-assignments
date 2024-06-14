@@ -68,13 +68,13 @@ public class TasksController {
         var task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
 
-        taskMapper.update(updateDTO, task);
+        if (task.getAssignee() == null || task.getAssignee().getId() != updateDTO.getAssigneeId()) {
+            var newAssignee = userRepository.findById(updateDTO.getAssigneeId())
+                    .orElseThrow(() -> new ResourceNotFoundException("User with id " + updateDTO.getAssigneeId() + " not found"));
+            newAssignee.addTask(task);
+        }
 
-        var assignee = userRepository.findById(updateDTO.getAssigneeId())
-                        .orElseThrow(() -> new ResourceNotFoundException("User with id "
-                                + updateDTO.getAssigneeId()
-                                + " not found"));
-        assignee.addTask(task);
+        taskMapper.update(updateDTO, task);
 
         taskRepository.save(task);
         return taskMapper.map(task);
